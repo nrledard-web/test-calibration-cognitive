@@ -6,7 +6,15 @@ st.set_page_config(
     page_icon="🧠",
     layout="wide",
 )
+st.set_page_config(
+    page_title="Test de calibration cognitive",
+    page_icon="🧠",
+    layout="wide",
+)
 
+st.image("a_digital_graphic_banner_for_the_cognitive_calibra.png", use_container_width=True)
+
+st.title("Test de calibration cognitive")
 # -----------------------------
 # Données du test
 # -----------------------------
