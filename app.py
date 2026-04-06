@@ -7,7 +7,7 @@ st.set_page_config(
     layout="wide",
 )
 
-st.image("a_digital_graphic_banner_for_the_cognitive_calibra.png", use_container_width=True)
+st.image("st.image("banner.png", use_container_width=True)
 st.title("🧠 Test de calibration cognitive")
 st.caption("Cognitive Calibration Laboratory — Structural Cognition Research")
 # -----------------------------
