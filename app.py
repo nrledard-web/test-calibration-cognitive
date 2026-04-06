@@ -237,18 +237,18 @@ if st.button("Calculer mon score", type="primary", use_container_width=True):
         st.metric("Expérience moyenne (N)", f"{avg_n:.2f}")
 
     data = {
-    "Certitude": avg_d,
-    "Explication": avg_g,
-    "Expérience": avg_n
-}
+        "Certitude": avg_d,
+        "Explication": avg_g,
+        "Expérience": avg_n
+    }
 
-fig = px.bar(
-    x=list(data.keys()),
-    y=list(data.values()),
-    title="Votre calibration cognitive"
-)
+    fig = px.bar(
+        x=list(data.keys()),
+        y=list(data.values()),
+        title="Votre calibration cognitive"
+    )
 
-st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
     with detail_col:
         st.markdown(f"### {profile['emoji']} {profile['name']}")
@@ -295,6 +295,7 @@ st.plotly_chart(fig)
             f"- **{item['question']}** → M = **{item['m']}** "
             f"(G={item['g']}, N={item['n']}, D={item['d']})"
         )
+
     st.markdown("## Remarque")
     st.caption(
         "Ce test propose une lecture heuristique de la calibration cognitive. "
