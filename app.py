@@ -76,13 +76,6 @@ PROFILES = [
 # Fonctions
 # -----------------------------
 def score_question(g: int, n: int, d: int) -> int:
-    """
-    Formule de base :
-    M = (G + N) - D
-    G = capacité à expliquer
-    N = expérience / confrontation réelle
-    D = certitude
-    """
     return (g + n) - d
 
 
@@ -140,7 +133,7 @@ La formule utilisée est :
 
 ### **M = (G + N) − D**
 
-Plus votre score est élevé, plus votre certitude semble proportionnée à votre ancrage.
+Plus votre score est élevé, plus votre certitude semble proportionnée à votre ancrage.  
 Plus il est négatif, plus la certitude risque de précéder la compréhension.
 """
 )
@@ -154,7 +147,7 @@ Pour chaque affirmation, réglez trois curseurs de **0 à 10** :
 - **Capacité à expliquer** : à quel point vous pourriez l’expliquer clairement à quelqu’un
 - **Expérience réelle** : à quel point vous avez étudié, expérimenté ou sérieusement confronté le sujet
 
-Il ne s’agit pas d’un test clinique, ni d’un jugement moral.
+Il ne s’agit pas d’un test clinique, ni d’un jugement moral.  
 C’est un miroir. Et les miroirs, parfois, ont le mauvais goût d’être polis.
 """
     )
@@ -167,6 +160,10 @@ with col_right:
 responses = []
 
 for i, question in enumerate(QUESTIONS, start=1):
+    progress = i / len(QUESTIONS)
+    st.progress(progress)
+    st.write(f"Question {i} sur {len(QUESTIONS)}")
+
     st.markdown("---")
     st.subheader(f"Question {i}")
     st.write(question)
@@ -175,7 +172,7 @@ for i, question in enumerate(QUESTIONS, start=1):
 
     with col1:
         d = st.slider(
-            "Certitude",
+            f"Certitude — Q{i}",
             min_value=0,
             max_value=10,
             value=5,
@@ -185,7 +182,7 @@ for i, question in enumerate(QUESTIONS, start=1):
 
     with col2:
         g = st.slider(
-            "Capacité à expliquer",
+            f"Capacité à expliquer — Q{i}",
             min_value=0,
             max_value=10,
             value=5,
@@ -195,7 +192,7 @@ for i, question in enumerate(QUESTIONS, start=1):
 
     with col3:
         n = st.slider(
-            "Expérience réelle",
+            f"Expérience réelle — Q{i}",
             min_value=0,
             max_value=10,
             value=5,
@@ -204,6 +201,7 @@ for i, question in enumerate(QUESTIONS, start=1):
         )
 
     m = score_question(g, n, d)
+
     responses.append(
         {
             "question": question,
@@ -215,6 +213,7 @@ for i, question in enumerate(QUESTIONS, start=1):
     )
 
 st.markdown("---")
+
 if st.button("Calculer mon score", type="primary", use_container_width=True):
     total_score = sum(item["m"] for item in responses)
     avg_score = total_score / len(responses)
@@ -240,6 +239,9 @@ if st.button("Calculer mon score", type="primary", use_container_width=True):
         st.markdown(f"### {profile['emoji']} {profile['name']}")
         st.write(profile["description"])
         st.info(interpret_score(avg_score))
+
+    st.markdown("## Votre profil")
+    st.write(profile["name"])
 
     st.markdown("## Lecture rapide")
     if avg_score < 0:
@@ -278,7 +280,6 @@ if st.button("Calculer mon score", type="primary", use_container_width=True):
             f"- **{item['question']}** → M = **{item['m']}** "
             f"(G={item['g']}, N={item['n']}, D={item['d']})"
         )
-
     st.markdown("## Remarque")
     st.caption(
         "Ce test propose une lecture heuristique de la calibration cognitive. "
