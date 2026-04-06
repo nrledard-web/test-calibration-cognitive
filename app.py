@@ -236,6 +236,20 @@ if st.button("Calculer mon score", type="primary", use_container_width=True):
         st.metric("Explication moyenne (G)", f"{avg_g:.2f}")
         st.metric("Expérience moyenne (N)", f"{avg_n:.2f}")
 
+    data = {
+    "Certitude": avg_d,
+    "Explication": avg_g,
+    "Expérience": avg_n
+}
+
+fig = px.bar(
+    x=list(data.keys()),
+    y=list(data.values()),
+    title="Votre calibration cognitive"
+)
+
+st.plotly_chart(fig)
+
     with detail_col:
         st.markdown(f"### {profile['emoji']} {profile['name']}")
         st.write(profile["description"])
