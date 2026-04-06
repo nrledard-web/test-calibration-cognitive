@@ -8,7 +8,6 @@ st.set_page_config(
 )
 
 st.image("banner.png", use_container_width=True)
-st.title("🧠 Test de calibration cognitive")
 st.caption("Cognitive Calibration Laboratory — Structural Cognition Research")
 # -----------------------------
 # Données du test
